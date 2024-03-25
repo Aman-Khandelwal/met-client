@@ -31,11 +31,6 @@ export default function Artwork(props: any) {
                {data.artistDisplayName}
             </Typography>
 
-            {/* @ts-ignore */}
-            <Typography variant="h6" className="m-2">
-               {data.objectID}
-            </Typography>
-
             <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title || "no alt text available"} width={300} height={300} className="w-full"/>
             </div>
             }
