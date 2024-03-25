@@ -47,11 +47,11 @@ export default function Page() {
     }, [searchTerm, setObjectIDs, setTotal])
 
     return (
-    <div className="w-full h-full flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center">
         <MetLogo/>
 
         {/* Search Bar */}
-        <div className="m-5">
+        <div className="m-5 max-w-[200px]">
             {/* @ts-ignore */}
             <Input variant="outlined" label="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
         </div>
