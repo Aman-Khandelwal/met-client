@@ -7,10 +7,12 @@ export default function Landing() {
     <div className="container">
       <MetLogo />
       
+      {/* @ts-ignore */}
       <Typography variant="h1" className="m-7">
         The Metropolitan Museum of Art
       </Typography>
       
+      {/* @ts-ignore */}
       <Typography variant="h4" className="m-2">
         Welcome to the MET Archive
       </Typography>

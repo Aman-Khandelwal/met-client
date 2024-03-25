@@ -6,7 +6,7 @@ export default function Artwork(props: any) {
     const [data, setData] = useState({}) as any;
     const [loading, setLoading] = useState(true);
 
-    console.log('artwork', data)
+    // console.log('artwork', data)
     useEffect(() => {
         async function fetchData() {
             const res = await fetch(`/api/artwork/${props.id}`);
@@ -19,14 +19,24 @@ export default function Artwork(props: any) {
 
     return (
         <div> 
-            {!loading && <div  className="flex-col justify-center">
+            {!loading && <div  className="flex-col justify-center mb-24">
 
             {/* @ts-ignore */}
             <Typography variant="h4" className="m-2">
                {data.title}
             </Typography>
 
-            <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title} width={300} height={300} className="w-full"/>
+            {/* @ts-ignore */}
+            <Typography variant="h5" className="m-2">
+               {data.artistDisplayName}
+            </Typography>
+
+            {/* @ts-ignore */}
+            <Typography variant="h6" className="m-2">
+               {data.objectID}
+            </Typography>
+
+            <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title || "no alt text available"} width={300} height={300} className="w-full"/>
             </div>
             }
         </div>
