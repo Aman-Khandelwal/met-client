@@ -16,11 +16,13 @@ export default function CollectionPage() {
             </Typography>
 
             {/* Artwork */}
-            <div className="w-full h-1/3">
-                {userCollection.map((id: string) => {
-                    return <Artwork key={id} id={id}/>
-                })}
-            </div>
+            { !userCollection.length ? <>Collection Empty</> :(
+                <div className="w-full h-1/3">
+                    {userCollection.map((id: string) => {
+                        return <Artwork key={id} id={id}/>
+                    })}
+                </div>
+            )}
         </Layout>
     )
 }

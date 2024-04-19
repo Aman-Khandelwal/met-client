@@ -19,15 +19,14 @@ export default function Page() {
 
     const pageNo = Number(router.query.pageNo as string) || 1;
 
+    // slices objectIDs array to get the new artworkData for the page
     useEffect(() => {
-        async function fetchData() {
-            const itemIndex = (Number(pageNo)-1)*10;
-            setArtworkData(objectIDs.slice(itemIndex, itemIndex + 9))
-        }
-        fetchData();
+        const itemIndex = (Number(pageNo)-1)*10;
+        setArtworkData(objectIDs.slice(itemIndex, itemIndex + 9))
     }, [pageNo, objectIDs])
 
 
+    // fetch objectIDs and total from the api
     useEffect(() => {
         let isMounted = true;
 
@@ -42,6 +41,7 @@ export default function Page() {
             }
         }
 
+        // if there is a search term, fetch the search results, else fetch all objects
         if(searchTerm.length)
             fetchData(`/api/search/${searchTerm}`);
         else {

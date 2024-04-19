@@ -8,11 +8,14 @@ export default function Artwork({id}: {id: string}) {
     /* @ts-ignore */
     const {userCollection, setUserCollection} = useContext(UserCollectionContext);
 
+    // data is the object fetched from met api
     const [data, setData] = useState({}) as any;
     const [loading, setLoading] = useState(true);
-    const [present, setPresent] = useState(userCollection.length > 50 || userCollection.includes(id)); // is this id present in the user collection
+    
+    // is this id present in the user collection
+    const [present, setPresent] = useState(userCollection.length > 50 || userCollection.includes(id)); 
 
-    // console.log('artwork', data)
+    // fetch artwork data on mount
     useEffect(() => {
         async function fetchData() {
             const res = await fetch(`/api/artwork/${id}`);
@@ -29,7 +32,7 @@ export default function Artwork({id}: {id: string}) {
             setUserCollection([...userCollection, id]);
             setPresent(true);
         }
-
+        // remove id from user collection if it's present
         else if(userCollection.includes(id)){
             setUserCollection(userCollection.filter((item: string) => item !== id))
             setPresent(false);
