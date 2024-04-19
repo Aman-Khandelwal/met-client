@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function MetLogo() {
   return (
     <Link href="/">
-      <div className="flex justify-center">
+      <div className="p-2 flex justify-center text-black hover:text-gray-500">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="40"

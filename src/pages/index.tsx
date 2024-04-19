@@ -1,12 +1,11 @@
+import Layout from "@/components/Layout";
 import MetLogo from "@/components/MetLogo";
 import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
 
 export default function Landing() {
   return (
-    <div className="container">
-      <MetLogo />
-      
+    <Layout>
       {/* @ts-ignore */}
       <Typography variant="h1" className="m-7">
         The Metropolitan Museum of Art
@@ -18,6 +17,8 @@ export default function Landing() {
       </Typography>
 
       <Link href="/page/1" className="text-blue-200">Visit Page 1</Link>
-    </div>
+      <Link href="/collection" className="text-blue-200">Visit Your Collection</Link>
+    </Layout>
+      
   );
 }
