@@ -3,8 +3,7 @@ import { ObjectIDContext } from "@/context/ObjectIDContext";
 import { Button, IconButton, Input, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { ArrowLeftIcon, ArrowRightIcon, CircleStackIcon } from '@heroicons/react/24/outline'
-import MetLogo from "@/components/MetLogo";
+import { ArrowLeftIcon, ArrowRightIcon, CircleStackIcon } from '@heroicons/react/24/outline';
 import Layout from "@/components/Layout";
 
 export default function Page() {
@@ -53,34 +52,35 @@ export default function Page() {
 
     return (
         <Layout>
-            {/* Search Bar */}
-            <div className="m-5 max-w-[200px]">
+            
+            <div className="flex flex-row mb-5 justify-center items-center text-center">
+                {/* Page Title */}
                 {/* @ts-ignore */}
-                <Input variant="outlined" label="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
+                <Typography variant="h5" className="w-full h-1/6 pb-7">Page {pageNo}</Typography>
+            
+                {/* Search Bar */}
+                <div className="m-5 max-w-[200px]">
+                    {/* @ts-ignore */}
+                    <Input variant="outlined" label="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
+                </div>
             </div>
             
-            <CircleStackIcon className="w-10 h-10 text-black hover:text-gray-500" onClick={() => router.push(`/collection`)}/>
-
-            {/* Page Title */}
-            {/* @ts-ignore */}
-            <Typography variant="h1" className="w-full h-1/6 mb-20">Page {pageNo}</Typography>
-            
             {/* Artwork */}
-            <div className="w-full h-1/3">
-                {artworkData.map((id) => {
+            <div className="flex flex-col w-1/2 h-fit overflow-y-scroll">
+                {artworkData && artworkData.map((id) => {
                     return <Artwork key={id} id={id}/>
                 })}
             </div>
 
             {/* Buttons */}
-            <div className="mt-5 flex justify-between">
+            <div className="flex mt-5">
                 {/* @ts-ignore */}
-                <IconButton color="white" onClick={() => router.push(`/page/${pageNo-1}`)} disabled={pageNo === 1} className="rounded-full">
+                <IconButton className="mr-5 rounded-full" color="white" onClick={() => router.push(`/page/${pageNo-1}`)} disabled={pageNo === 1}>
                     <ArrowLeftIcon className="w-full h-full"/>
                 </IconButton>
 
                 {/* @ts-ignore */}
-                <IconButton color="white" onClick={() => router.push(`/page/${pageNo+1}`)} disabled={pageNo === Math.ceil(total/10)} className="rounded-full">
+                <IconButton className="ml-5 rounded-full" color="white" onClick={() => router.push(`/page/${pageNo+1}`)} disabled={pageNo === Math.ceil(total/10)}>
                     <ArrowRightIcon className="w-full h-full"/>
                 </IconButton>
             </div>

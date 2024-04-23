@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Card, CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import { useContext, useEffect, useState } from "react";
 import Image from 'next/image';
 import { UserCollectionContext, UserCollectionProvider, capacity } from "@/context/UserCollectionContext";
@@ -39,28 +39,44 @@ export default function Artwork({id}: {id: string}) {
         }
     }
 
-
+    console.log('artworkData', data)
     return (
         <div> 
-            {!loading && (
-            <div  className="flex-col justify-center mb-24">
+            {!loading && ( <>
                 {/* @ts-ignore */}
-                <Typography variant="h4" className="m-2">
-                {data.title}
-                </Typography>
+                <Card className="flex flex-row justify-center m-12">
+                    {/* @ts-ignore */}
+                    <CardHeader className="w-2/5 flex justify-center m-0 shrink-0 rounded-r-none">
+                        <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title || "no alt text available"} width={300} height={300} className="h-full w-full object-cover"/>
+                    </CardHeader>
 
-                {/* @ts-ignore */}
-                <Typography variant="h5" className="m-2">
-                {data.artistDisplayName}
-                </Typography>
+                    {/* @ts-ignore */}
+                    <CardBody className="w-3/5 p-10 flex flex-col justify-between items-center text-ellipsis">
+                        {/* @ts-ignore */}
+                        <Typography variant="h3" className="m-2">
+                            {data.title}
+                        </Typography>
 
-                <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title || "no alt text available"} width={300} height={300} className="w-full"/>
+                        {/* @ts-ignore */}
+                        <Typography variant="h5" className="m-2">
+                            {data.artistDisplayName}
+                        </Typography>
 
+                        {/* @ts-ignore */}
+                        <Typography variant="subtitle" className="m-2">
+                            {data.department}
+                        </Typography>
+                        {/* @ts-ignore */}
+                        <Typography variant="subtitle" className="m-2">
+                            {data.medium}
+                        </Typography>
 
-                {/* @ts-ignore */}
-                <Button size="lg" ripple={true} onClick={toggleCollection} disabled={userCollection.length >= capacity && !userCollection.includes(id)}>{!present ? "Add to Collection" : "Remove from Collection"}</Button>
-            </div>)
-            }
+                        {/* @ts-ignore */}
+                        <Button size="lg" ripple={true} onClick={toggleCollection} disabled={userCollection.length >= capacity && !userCollection.includes(id)}>{!present ? "Add to Collection" : "Remove from Collection"}</Button>
+                    </CardBody>
+                </Card>
+            </>
+            )}
         </div>
     )
 }
