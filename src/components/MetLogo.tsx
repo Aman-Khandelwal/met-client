@@ -6,8 +6,8 @@ export default function MetLogo() {
       <div className="p-2 flex justify-center text-black hover:text-gray-500">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
+          width="80"
+          height="80"
           viewBox="0 0 40 40"
         >
           <path
