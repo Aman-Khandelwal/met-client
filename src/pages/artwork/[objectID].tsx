@@ -1,11 +1,15 @@
+import Layout from "@/components/Layout";
 import { Button, Card, CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import { useContext, useEffect, useState } from "react";
 import Image from 'next/image';
 import { UserCollectionContext, capacity } from "@/context/UserCollectionContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function Artwork({id}: {id: number}) {
+export default function ArtworkPage() {
     const router = useRouter();
+    const id = Number(router.query.objectID as string) || 1;
+    console.log('id', id)
 
     // array of objects id strings stored in global context
     /* @ts-ignore */
@@ -17,6 +21,7 @@ export default function Artwork({id}: {id: number}) {
     
     // is this id present in the user collection
     const [present, setPresent] = useState(userCollection.length > 50 || userCollection.includes(id)); 
+    console.log('present', present, userCollection)
 
     // fetch artwork data on mount
     useEffect(() => {
@@ -41,20 +46,19 @@ export default function Artwork({id}: {id: number}) {
             setPresent(false);
         }
     }
-
-    // console.log('artworkData', data)
+    console.log('data', data)
     return (
-        <div> 
+        <Layout> 
             {!loading && ( <>
                 {/* @ts-ignore */}
-                <Card className={`w-full flex flex-row justify-center m-6 p-1 border-opacity-40 border-4  ${data.isHighlight && "border-yellow-700"}`}>
+                <Card className="w-full h-full flex flex-col justify-center  items-center m-12">
                     {/* @ts-ignore */}
-                    <CardHeader className="w-2/5 flex justify-center m-0 shrink-0 rounded-r-none" onClick={() => router.push(`/artwork/${id}`)}>
-                        <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title || "no alt text available"} fill={true} style={{objectFit: "contain"}} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
+                    <CardHeader className="w-fit h-fit flex justify-center">
+                        <Image src={data.primaryImage || data.primaryImageSmall || "/n-a.jpg"} alt={data.title || "no alt text available"} width={500} height={500} style={{objectFit: "contain"}}/>
                     </CardHeader>
 
                     {/* @ts-ignore */}
-                    <CardBody className="w-3/5 p-10 flex flex-col justify-between items-center">
+                    <CardBody className="w-full p-10 flex flex-col justify-between items-center overflow-scroll text-ellipsis">
                         <div className="w-full flex flex-row justify-center items-center">
                             {/* @ts-ignore */}
                             <Typography variant="small" className="m-2">
@@ -65,6 +69,7 @@ export default function Artwork({id}: {id: number}) {
                             <Typography variant="h3" className="m-2">
                                 {data.title || "N/A"}
                             </Typography>
+
                         </div>
                         <div className="w-full flex flex-row justify-center items-center">
                             {/* @ts-ignore */}
@@ -80,33 +85,103 @@ export default function Artwork({id}: {id: number}) {
                         <div className="w-full flex flex-row justify-center items-center">
                             {/* @ts-ignore */}
                             <Typography variant="small" className="m-2">
+                                Artist Bio
+                            </Typography>
+                            
+                            {/* @ts-ignore */}
+                            <Typography variant="h6" className="m-2">
+                                {data.artistDisplayBio || "N/A"}
+                            </Typography>
+                        </div>
+                        <div className="w-full flex flex-row justify-center items-center">
+                            {/* @ts-ignore */}
+                            <Typography variant="small" className="m-2">
+                                Artist Nationality
+                            </Typography>
+                            
+                            {/* @ts-ignore */}
+                            <Typography variant="h6" className="m-2">
+                                {data.artistNationality || "N/A"}
+                            </Typography>
+                        </div>
+
+                        <div className="w-full flex flex-row justify-center items-center">
+                            {/* @ts-ignore */}
+                            <Typography variant="small" className="m-2">
                                 Department
                             </Typography>
-                        
+
                             {/* @ts-ignore */}
                             <Typography variant="h6" className="m-2">
                                 {data.department || "N/A"}
                             </Typography>
+                            
                         </div>
                         <div className="w-full flex flex-row justify-center items-center">
                             {/* @ts-ignore */}
                             <Typography variant="small" className="m-2">
                                 Medium
                             </Typography>
-                        
+
                             {/* @ts-ignore */}
                             <Typography variant="h6" className="m-2">
                                 {data.medium || "N/A"}
                             </Typography>
+                            
+                        </div>
+
+                        <div className="w-full flex flex-row justify-center items-center">
+                            {/* @ts-ignore */}
+                            <Typography variant="small" className="m-2">
+                                Begin-End Date
+                            </Typography>
+
+                            {/* @ts-ignore */}
+                            <Typography variant="h6" className="m-2">
+                                {`${data.objectBeginDate || "N/A"} - ${data.objectEndDate || "N/A"}`}
+                            </Typography>
+                        </div>
+
+                        <div className="w-full flex flex-row justify-center items-center">
+                            {/* @ts-ignore */}
+                            <Typography variant="small" className="m-2">
+                                Gallery Number
+                            </Typography>
+
+                            {/* @ts-ignore */}
+                            <Typography variant="h6" className="m-2">
+                                {data.GalleryNumber || "N/A"}
+                            </Typography>
+                        </div>
+
+                        <div className="w-full flex flex-row justify-center items-center">
+                            {/* @ts-ignore */}
+                            <Typography variant="small" className="m-2">
+                                Accesion Number
+                            </Typography>
+
+                            {/* @ts-ignore */}
+                            <Typography variant="h6" className="m-2">
+                                {data.accesionNumber || "N/A"}
+                            </Typography>
                         </div>
 
 
+
+
+                        {/* @ts-ignore */}
+                        <Typography variant="h6" className="m-2">
+                            {data.isHighlight ? "This work is a MET Highlight" : "This work is not a MET Highlight"}
+                        </Typography>
+
+                        {/* @ts-ignore */}
+                        <Link href={data.objectURL} className="m-2 text-blue-500 underline hover:text-purple-200 ">View on MET</Link>
                         {/* @ts-ignore */}
                         <Button size="lg" ripple={true} onClick={toggleCollection} disabled={userCollection.length >= capacity && !userCollection.includes(id)}>{!present ? "Add to Collection" : "Remove from Collection"}</Button>
                     </CardBody>
                 </Card>
             </>
             )}
-        </div>
+        </Layout>
     )
 }

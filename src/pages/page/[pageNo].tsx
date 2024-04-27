@@ -6,6 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon, CircleStackIcon } from '@heroicons/react/24/outline';
 import Layout from "@/components/Layout";
 
+export const pageSize = 10;
+
 export default function Page() {
     const router = useRouter();
 
@@ -20,8 +22,8 @@ export default function Page() {
 
     // slices objectIDs array to get the new artworkData for the page
     useEffect(() => {
-        const itemIndex = (Number(pageNo)-1)*10;
-        setArtworkData(objectIDs.slice(itemIndex, itemIndex + 9))
+        const itemIndex = (Number(pageNo)-1)*pageSize;
+        setArtworkData(objectIDs.slice(itemIndex, itemIndex + pageSize))
     }, [pageNo, objectIDs])
 
 
@@ -49,9 +51,11 @@ export default function Page() {
 
         return () => {isMounted = false} // some weird react magic that prevents race condition
     }, [searchTerm, setObjectIDs, setTotal])
-
+    console.log('artworkData', artworkData, typeof artworkData[0], artworkData.length)
     return (
         <Layout>
+            {/* @ts-ignore */}
+            <Typography variant="h1" className="m-7">Random Collection</Typography>
             
             <div className="flex flex-row mb-5 justify-center items-center text-center">
                 {/* Page Title */}
@@ -66,14 +70,14 @@ export default function Page() {
             </div>
             
             {/* Artwork */}
-            <div className="flex flex-col w-1/2 h-fit overflow-y-scroll">
-                {artworkData && artworkData.map((id) => {
+            <div className="p-6 w-full h-fit flex flex-col justify-start items-stretch border-t-8 border-red-400 overflow-y-scroll">
+                {artworkData && artworkData.map((id: number) => {
                     return <Artwork key={id} id={id}/>
                 })}
             </div>
 
             {/* Buttons */}
-            <div className="flex mt-5">
+            <div className="flex mt-5 bottom-0 sticky">
                 {/* @ts-ignore */}
                 <IconButton className="mr-5 rounded-full" color="white" onClick={() => router.push(`/page/${pageNo-1}`)} disabled={pageNo === 1}>
                     <ArrowLeftIcon className="w-full h-full"/>
