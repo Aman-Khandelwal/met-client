@@ -15,7 +15,7 @@ export default function Landing() {
         Welcome to the MET Archive
       </Typography>
 
-      <Link href="/page/1" className="text-blue-200">Visit Page 1</Link>
+      <Link href="/page/1" className="text-blue-200">Visit Random Collection</Link>
       <Link href="/collection" className="text-blue-200">Visit Your Collection</Link>
     </Layout>
 

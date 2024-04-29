@@ -9,7 +9,6 @@ import Link from "next/link";
 export default function ArtworkPage() {
     const router = useRouter();
     const id = Number(router.query.objectID as string) || 1;
-    console.log('id', id)
 
     // array of objects id strings stored in global context
     /* @ts-ignore */
@@ -21,7 +20,6 @@ export default function ArtworkPage() {
     
     // is this id present in the user collection
     const [present, setPresent] = useState(userCollection.length > 50 || userCollection.includes(id)); 
-    console.log('present', present, userCollection)
 
     // fetch artwork data on mount
     useEffect(() => {
@@ -46,7 +44,7 @@ export default function ArtworkPage() {
             setPresent(false);
         }
     }
-    console.log('data', data)
+    
     return (
         <Layout> 
             {!loading && ( <>
