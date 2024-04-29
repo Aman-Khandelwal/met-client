@@ -42,14 +42,13 @@ export default function Artwork({id}: {id: number}) {
         }
     }
 
-    // console.log('artworkData', data)
     return (
         <div> 
             {!loading && ( <>
                 {/* @ts-ignore */}
                 <Card className={`w-full flex flex-row justify-center m-6 p-1 border-opacity-40 border-4  ${data.isHighlight && "border-yellow-700"}`}>
                     {/* @ts-ignore */}
-                    <CardHeader className="w-2/5 flex justify-center m-0 shrink-0 rounded-r-none" onClick={() => router.push(`/artwork/${id}`)}>
+                    <CardHeader className="w-2/5 flex justify-center m-0 shrink-0 rounded-r-none hover:bg-gray-200" onClick={() => router.push(`/artwork/${id}`)}>
                         <Image src={data.primaryImage || "/n-a.jpg"} alt={data.title || "no alt text available"} fill={true} style={{objectFit: "contain"}} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
                     </CardHeader>
 

@@ -15,7 +15,6 @@ export function UserCollectionProvider({children}: {children: React.ReactNode}) 
         }
 
         const storedUsername = localStorage.getItem("username");
-        console.log('storedUsername', storedUsername)
         if (storedUsername) {
             setUsername(storedUsername);
         }
@@ -32,7 +31,6 @@ export function UserCollectionProvider({children}: {children: React.ReactNode}) 
     }, [userCollection]);
 
     useEffect(() => {
-        console.log('saving', username)
         if(username.length > 0 && username !== "User")
         localStorage.setItem("username", username);
     }, [username])

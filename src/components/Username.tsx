@@ -12,10 +12,8 @@ export default function Username() {
     return (<div className="m-2 w-1/4 justify-center flex items-center">
         {editing ? 
         <form className="m-2"  onSubmit={() => {
-            console.log('setting', value)
             setUsername(value);
             setEditing(false);
-            console.log('submitted', value, username)
         }}>
             {/* @ts-ignore */}
             <Input size="lg" variant="outlined"  label="Name" value={value} onChange={(e) => setValue(e.target.value)}/> 
