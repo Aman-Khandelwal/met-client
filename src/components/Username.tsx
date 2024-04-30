@@ -21,7 +21,7 @@ export default function Username() {
         : <>
             {/* @ts-ignore */}
             <Typography variant="h1" className="m-7">
-                {username}&#39;s Collection
+                {username}&#39;s Collections
             </Typography> 
         </>
         }
