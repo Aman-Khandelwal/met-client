@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon, CircleStackIcon } from '@heroicons/react/24/outline';
 import Layout from "@/components/Layout";
 import { ArrowPathIcon } from "@heroicons/react/16/solid";
+import { UserCollectionContext } from "@/context/UserCollectionContext";
 
 export const pageSize = 10;
 
@@ -18,6 +19,7 @@ export default function Page() {
     const {objectIDs, total, shuffledIDs, setShuffledIDs} = useContext(ObjectIDContext);
     const [IDs, setIDs] = useState(shuffledIDs); // array of objectIDs to be used for all pages
     const [searchTerm, setSearchTerm] = useState('');
+    const { selectedCollection} = useContext(UserCollectionContext);
     
     const pageNo = Number(router.query.pageNo as string) || 1;
     const [artworkData, setArtworkData] = useState([]); // array of 10 objectIDs to be fetched by the Artwork components
@@ -59,6 +61,9 @@ export default function Page() {
             {/* @ts-ignore */}
             <Typography variant="h1" className="m-7">Random Collection</Typography>
             
+            {/* @ts-ignore */}
+            <Typography color="red" variant="h3">Current Collection: {selectedCollection}</Typography>
+
             <div className="w-full flex flex-row mb-5 justify-center items-center text-center">
                 {/* Page Title */}
                 {/* @ts-ignore */}

@@ -9,7 +9,7 @@ export default function Username() {
     const {username, setUsername} = useContext(UserCollectionContext);
     
     
-    return (<div className="m-2 w-1/4 justify-center flex items-center">
+    return (<div className="m-5 w-1/2 flex flex-row justify-center items-center relative">
         {editing ? 
         <form className="m-2"  onSubmit={() => {
             setUsername(value);
@@ -21,12 +21,12 @@ export default function Username() {
         : <>
             {/* @ts-ignore */}
             <Typography variant="h1" className="m-7">
-                {username}&#39;s Collection
+                {username}&#39;s Collections
             </Typography> 
         </>
         }
         {/* @ts-ignore */}
-        <Button onClick={(e) => {setEditing(!editing)}}>{editing ? "Cancel" : "Edit"}</Button>
+        <Button onClick={(e) => {setEditing(!editing)}} >{editing ? "Cancel" : "Edit Name"} </Button>
 
     </div>
     )

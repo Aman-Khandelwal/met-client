@@ -1,45 +1,79 @@
 import { createContext, useEffect, useState } from "react";
 
-export const UserCollectionContext = createContext([]);
-export const capacity = 30
+// Initializing context with a default value
+export const UserCollectionContext = createContext({
+    collections: {},
+    setCollections: (collections: any) => {},
+    addCollection: (name: string) => {},
+    selectedCollection: 'Default',
+    setSelectedCollection: (name: string) => {},
+    username: "User",
+    setUsername: (name: string) => {}
+});
+export const capacity = 30;
+
 
 export function UserCollectionProvider({children}: {children: React.ReactNode}) {
-    const [userCollection, setUserCollection] = useState([]);
+    const [collections, setCollections] = useState<{[key: string]: number[]}>({ "Default": [] });
+    const [selectedCollection, setSelectedCollection] = useState("Default");
     const [username, setUsername] = useState("User");
 
-    // fetch user collection and name from local storage on mount
-    useEffect(() => {
-        const storedCollection = localStorage.getItem("userCollection");
-        if (storedCollection) {
-            setUserCollection(JSON.parse(storedCollection));
+    // Function to add a new collection
+    const addCollection = (name: string) => {
+        if (!collections[name]) {
+            setCollections(prevCollections => ({
+                ...prevCollections,
+                [name]: []
+            }));
+        } else {
+            console.error("Collection already exists!");
         }
+    };
 
+    // Fetch user data from local storage on mount
+    useEffect(() => {
+        const storedCollections = localStorage.getItem("collections");
+        const storedSelectedCollection = localStorage.getItem("selectedCollection");
         const storedUsername = localStorage.getItem("username");
+
+        if (storedCollections) {
+            setCollections(JSON.parse(storedCollections));
+        }
+        if (storedSelectedCollection) {
+            setSelectedCollection(storedSelectedCollection);
+        }
         if (storedUsername) {
             setUsername(storedUsername);
         }
     }, []);
 
-    // save user collection to local storage on change
+    // Save collections and selected collection to local storage on changes
     useEffect(() => {
-        if (userCollection.length > 0) {
-            localStorage.setItem("userCollection", JSON.stringify(userCollection));
-        } else {
-            // if userCollection is empty, remove it from local storage
-            localStorage.removeItem("userCollection");
+        if(Object.keys(collections).length > 1 || collections["Default"].length > 0)  {
+            localStorage.setItem("collections", JSON.stringify(collections));
+            localStorage.setItem("selectedCollection", selectedCollection);
         }
-    }, [userCollection]);
+    }, [collections, selectedCollection]);
 
+    
+    // Save username to local storage when it changes
     useEffect(() => {
-        if(username.length > 0 && username !== "User")
-        localStorage.setItem("username", username);
-    }, [username])
+        if (username !== "User") {
+            localStorage.setItem("username", username);
+        }
+    }, [username]);
 
-    return (<>
-        {/* @ts-ignore */}
-        <UserCollectionContext.Provider value={{userCollection, setUserCollection, username, setUsername}}>
+    return (
+        <UserCollectionContext.Provider value={{
+            collections,
+            setCollections,
+            addCollection,
+            selectedCollection,
+            setSelectedCollection,
+            username,
+            setUsername
+        }}>
             {children}
         </UserCollectionContext.Provider>
-    </>
     );
-  }
+}
