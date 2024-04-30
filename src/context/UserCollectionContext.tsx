@@ -49,8 +49,10 @@ export function UserCollectionProvider({children}: {children: React.ReactNode}) 
 
     // Save collections and selected collection to local storage on changes
     useEffect(() => {
-        localStorage.setItem("collections", JSON.stringify(collections));
-        localStorage.setItem("selectedCollection", selectedCollection);
+        if(Object.keys(collections).length > 1 || collections["Default"].length > 0)  {
+            localStorage.setItem("collections", JSON.stringify(collections));
+            localStorage.setItem("selectedCollection", selectedCollection);
+        }
     }, [collections, selectedCollection]);
 
     

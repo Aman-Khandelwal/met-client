@@ -21,11 +21,11 @@ export function AddCollectionForm() {
                     value={collectionName}
                     onChange={(e) => setCollectionName(e.target.value)}
                     placeholder="Collection Name"
-                    color="blue"
+                    color="red"
                     required
                 />
                 {/* @ts-ignore */}
-                <Button type="submit" color="blue" className="mt-2">
+                <Button type="submit" color="red" className="mt-2">
                     Add Collection
                 </Button>
             </form>

@@ -62,7 +62,7 @@ export default function Page() {
             <Typography variant="h1" className="m-7">Random Collection</Typography>
             
             {/* @ts-ignore */}
-            <Typography color="blue" variant="h3">Current Collection: {selectedCollection}</Typography>
+            <Typography color="red" variant="h3">Current Collection: {selectedCollection}</Typography>
 
             <div className="w-full flex flex-row mb-5 justify-center items-center text-center">
                 {/* Page Title */}

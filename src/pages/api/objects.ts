@@ -7,10 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects`;
 
-  console.log('here')
   let data = null;
   if(objectIDs.length === 0) {
-    console.log('here1')
     try{
       const response = await fetch(url);
       data = await response.json();
@@ -22,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     total = data.total;
   }
   else {
-    console.log('here2')
     data = {
       objectIDs: objectIDs,
       total: total
